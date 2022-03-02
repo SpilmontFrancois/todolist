@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/models/task.dart';
 
 class TaskPreview extends StatefulWidget {
-  const TaskPreview({Key? key}) : super(key: key);
+  const TaskPreview({Key? key, required this.task}) : super(key: key);
+
+  final Task task;
 
   @override
   State<TaskPreview> createState() => _TaskPreviewState();
@@ -10,6 +13,16 @@ class TaskPreview extends StatefulWidget {
 class _TaskPreviewState extends State<TaskPreview> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListTile(
+      title: Text(widget.task.content),
+      trailing: Checkbox(
+        value: widget.task.completed,
+        onChanged: (value) {
+          setState(() {
+            widget.task.completed = value!;
+          });
+        },
+      ),
+    );
   }
 }
