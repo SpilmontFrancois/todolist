@@ -15,6 +15,11 @@ class _TaskPreviewState extends State<TaskPreview> {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(widget.task.content),
+      onTap: () {
+        setState(() {
+          widget.task.completed = !widget.task.completed;
+        });
+      },
       trailing: Checkbox(
         value: widget.task.completed,
         onChanged: (value) {

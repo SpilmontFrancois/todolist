@@ -18,7 +18,7 @@ class TodoList extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Outfit',
       ),
-      home: const AllTasks(title: 'Todo List'),
+      home: const AllTasks(title: 'Liste des tâches'),
     );
   }
 }
