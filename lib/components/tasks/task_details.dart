@@ -2,14 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails({Key? key, required this.task, required this.hideDetails})
+  const TaskDetails(
+      {Key? key,
+      required this.task,
+      required this.hideDetails,
+      required this.confirmDelete})
       : super(key: key);
 
   final Task? task;
   final Function hideDetails;
+  final Function confirmDelete;
 
   void close() {
     hideDetails();
+  }
+
+  void delete(task) {
+    confirmDelete(task);
   }
 
   @override
@@ -38,9 +47,7 @@ class TaskDetails extends StatelessWidget {
           Text('Créé le : ' + date),
           Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton.icon(
-              onPressed: () {
-                // Respond to button press
-              },
+              onPressed: () => delete(task),
               icon: const Icon(Icons.delete, size: 18),
               label: const Text("Supprimer"),
               style: ElevatedButton.styleFrom(

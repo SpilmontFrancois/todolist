@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/components/tasks/task_master.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskPreview extends StatelessWidget {
