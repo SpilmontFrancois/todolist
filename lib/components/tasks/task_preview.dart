@@ -19,7 +19,7 @@ class TaskPreview extends StatelessWidget {
     }
 
     return ListTile(
-      tileColor: task!.completed ? Colors.grey[300] : Colors.white,
+      tileColor: task!.completed ? Colors.green : Colors.orange,
       title: Text(task!.content),
       onTap: () => onTaskSelected(task),
       trailing: getIconAccordingToCompleted(),

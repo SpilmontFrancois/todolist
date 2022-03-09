@@ -38,7 +38,9 @@ class _AllTasksState extends State<AllTasks> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TaskDetails(task: selectedTask, hideDetails: hideDetails),
+              selectedTask != null
+                  ? TaskDetails(task: selectedTask, hideDetails: hideDetails)
+                  : Container(),
               TaskMaster(
                 tasks: data.tasks,
                 showDetails: showDetails,
