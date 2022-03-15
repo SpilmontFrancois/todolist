@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/data/tasks_collection.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskDetails extends StatelessWidget {
@@ -34,43 +36,45 @@ class TaskDetails extends StatelessWidget {
           : const Icon(Icons.timelapse);
     }
 
-    return Container(
-      child: Column(
-        children: [
-          IconButton(
-            onPressed: () => close(),
-            icon: const Icon(Icons.close),
-            color: Colors.red,
-          ),
-          getIconAccordingToCompleted(),
-          Text(task!.content, textAlign: TextAlign.center),
-          Text('Créé le : ' + date),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            ElevatedButton.icon(
-              onPressed: () => delete(task),
-              icon: const Icon(Icons.delete, size: 18),
-              label: const Text("Supprimer"),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-                onPrimary: Colors.white,
-              ),
+    return Consumer<TasksCollection>(builder: (context, cart, child) {
+      return Container(
+        child: Column(
+          children: [
+            IconButton(
+              onPressed: () => close(),
+              icon: const Icon(Icons.close),
+              color: Colors.red,
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                // Respond to button press
-              },
-              icon: const Icon(Icons.edit, size: 18),
-              label: const Text("Editer"),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey[800],
-                onPrimary: Colors.white,
+            getIconAccordingToCompleted(),
+            Text(task!.content, textAlign: TextAlign.center),
+            Text('Créé le : ' + date),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              ElevatedButton.icon(
+                onPressed: () => delete(task),
+                icon: const Icon(Icons.delete, size: 18),
+                label: const Text("Supprimer"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.red,
+                  onPrimary: Colors.white,
+                ),
               ),
-            )
-          ])
-        ],
-      ),
-      color: Colors.grey[400],
-      width: double.infinity,
-    );
+              ElevatedButton.icon(
+                onPressed: () {
+                  // Respond to button press
+                },
+                icon: const Icon(Icons.edit, size: 18),
+                label: const Text("Editer"),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey[800],
+                  onPrimary: Colors.white,
+                ),
+              )
+            ])
+          ],
+        ),
+        color: Colors.grey[400],
+        width: double.infinity,
+      );
+    });
   }
 }
