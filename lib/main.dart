@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todolist/data/tasks_collection.dart';
-
 import 'package:todolist/screens/all_tasks.dart';
+import 'package:todolist/screens/one_task.dart';
+import 'package:todolist/screens/create_task.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -23,7 +24,12 @@ class TodoList extends StatelessWidget {
         primarySwatch: Colors.teal,
         fontFamily: 'Outfit',
       ),
-      home: const AllTasks(title: 'Liste des tâches'),
+      initialRoute: '/all_tasks',
+      routes: {
+        '/all_tasks': (context) => const AllTasks(title: 'Liste des tâches'),
+        '/one_task': (context) => const OneTask(title: 'Modifier une tâche'),
+        '/create_task': (context) => const CreateTask(title: 'Créer une tâche'),
+      },
     );
   }
 }

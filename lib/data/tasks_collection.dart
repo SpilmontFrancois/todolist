@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/models/task.dart';
@@ -8,7 +10,10 @@ class TasksCollection extends ChangeNotifier {
     notifyListeners();
   }
 
-  void update() {
+  void update(Task task, bool completed, String content) {
+    task.completed = completed;
+    task.content = content;
+    print('LE CONTENU AAAAAAAAAA :' + content);
     notifyListeners();
   }
 

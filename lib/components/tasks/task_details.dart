@@ -57,7 +57,8 @@ class TaskDetails extends StatelessWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                // Respond to button press
+                Navigator.pushNamed(context, '/one_task',
+                    arguments: {'task': task});
               },
               icon: const Icon(Icons.edit, size: 18),
               label: const Text("Editer"),
