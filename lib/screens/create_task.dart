@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/components/tasks/task_form.dart';
 
 class CreateTask extends StatelessWidget {
   const CreateTask({Key? key, required this.title}) : super(key: key);
@@ -11,6 +12,6 @@ class CreateTask extends StatelessWidget {
         appBar: AppBar(
           title: Text(title),
         ),
-        body: Container());
+        body: const TaskForm());
   }
 }

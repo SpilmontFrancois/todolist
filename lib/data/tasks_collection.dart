@@ -13,7 +13,6 @@ class TasksCollection extends ChangeNotifier {
   void update(Task task, bool completed, String content) {
     task.completed = completed;
     task.content = content;
-    print('LE CONTENU AAAAAAAAAA :' + content);
     notifyListeners();
   }
 
