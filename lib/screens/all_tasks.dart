@@ -34,6 +34,12 @@ class _AllTasksState extends State<AllTasks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(context, '/create_task');
+          },
+        ),
         appBar: AppBar(
           title: Text(widget.title),
         ),
