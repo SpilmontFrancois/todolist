@@ -31,21 +31,6 @@ class _AllTasksState extends State<AllTasks> {
     });
   }
 
-  void deleteTask(Task task) {
-    data.tasks.remove(task);
-    hideDetails();
-  }
-
-  void confirmDelete(Task task) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text('Voulez-vous vraiment supprimer cette tâche ?'),
-      action: SnackBarAction(
-        label: 'Oui',
-        onPressed: () => deleteTask(task),
-      ),
-    ));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
