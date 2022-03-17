@@ -90,7 +90,7 @@ class TaskFormState extends State<TaskForm> {
                       if (_formKey.currentState!.validate()) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Sauvegarde...'),
+                            content: Text('Sauvegardé'),
                             duration: Duration(seconds: 1),
                           ),
                         );
