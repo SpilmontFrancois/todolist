@@ -12,8 +12,6 @@ class TaskForm extends StatefulWidget {
 class _TaskFormState extends State<TaskForm> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<TasksCollection>(builder: (context, cart, child) {
-      return Container();
-    });
+    return Container();
   }
 }
