@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/models/task.dart';
 
@@ -12,8 +13,17 @@ class TasksCollection extends ChangeNotifier {
     notifyListeners();
   }
 
-  void delete(Task task) {
-    data.tasks.remove(task);
+  void delete(Task? task, BuildContext context, Function hideDetails) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: const Text('Voulez-vous vraiment supprimer cette tâche ?'),
+      action: SnackBarAction(
+        label: 'Oui',
+        onPressed: () {
+          data.tasks.remove(task);
+          hideDetails();
+        },
+      ),
+    ));
     notifyListeners();
   }
 }

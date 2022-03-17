@@ -48,31 +48,31 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TasksCollection>(
-      builder: (context, cart, child) {
-        return Scaffold(
-            appBar: AppBar(
-              title: Text(widget.title),
-            ),
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  selectedTask != null
-                      ? TaskDetails(
-                          task: selectedTask,
-                          hideDetails: hideDetails,
-                          confirmDelete: confirmDelete,
-                        )
-                      : Container(),
-                  TaskMaster(
-                    tasks: data.tasks,
-                    showDetails: showDetails,
-                  ),
-                ],
-              ),
-            ));
-      },
-    );
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: Center(
+          child:
+              Consumer<TasksCollection>(builder: (context, collection, child) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                selectedTask != null
+                    ? TaskDetails(
+                        task: selectedTask,
+                        hideDetails: hideDetails,
+                        confirmDelete: (task) {
+                          collection.delete(task, context, hideDetails);
+                        })
+                    : Container(),
+                TaskMaster(
+                  tasks: data.tasks,
+                  showDetails: showDetails,
+                ),
+              ],
+            );
+          }),
+        ));
   }
 }
