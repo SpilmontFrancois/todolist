@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todolist/data/tasks_collection.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskDetails extends StatelessWidget {
