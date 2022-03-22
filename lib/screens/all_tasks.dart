@@ -46,6 +46,7 @@ class _AllTasksState extends State<AllTasks> {
         body: Center(
           child:
               Consumer<TasksCollection>(builder: (context, collection, child) {
+            collection.getAll();
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -58,7 +59,7 @@ class _AllTasksState extends State<AllTasks> {
                         })
                     : Container(),
                 TaskMaster(
-                  tasks: data.tasks,
+                  tasks: collection.Tasks,
                   showDetails: showDetails,
                 ),
               ],

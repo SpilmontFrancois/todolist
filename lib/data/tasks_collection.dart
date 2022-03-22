@@ -1,12 +1,26 @@
-import 'dart:ffi';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/models/task.dart';
+import 'package:http/http.dart' as http;
 
 class TasksCollection extends ChangeNotifier {
+  late List<Task> Tasks;
+
+  TasksCollection() {
+    Tasks = [];
+  }
+
+  factory TasksCollection.fromJson(List<dynamic> array) {
+    TasksCollection tasksCollection = TasksCollection();
+    for (var element in array) {
+      tasksCollection.Tasks.add(Task.fromJson(element));
+    }
+    return tasksCollection;
+  }
+
   void create(Task task) {
-    data.tasks.add(task);
+    Tasks.add(task);
     notifyListeners();
   }
 
@@ -22,11 +36,23 @@ class TasksCollection extends ChangeNotifier {
       action: SnackBarAction(
         label: 'Oui',
         onPressed: () {
-          data.tasks.remove(task);
+          Tasks.remove(task);
           hideDetails();
+          notifyListeners();
         },
       ),
     ));
-    notifyListeners();
+  }
+
+  getAll() async {
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
+
+    if (response.statusCode == 200) {
+      Tasks = TasksCollection.fromJson(jsonDecode(response.body)).Tasks;
+      notifyListeners();
+    } else {
+      throw Exception('Failed to load tasks');
+    }
   }
 }
