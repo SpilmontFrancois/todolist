@@ -19,9 +19,24 @@ class TasksCollection extends ChangeNotifier {
     return tasksCollection;
   }
 
-  void create(Task task) {
-    Tasks.add(task);
-    notifyListeners();
+  void create(Task task) async {
+    final response =
+        await http.post(Uri.parse('https://jsonplaceholder.typicode.com/todos'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, String>{
+              'title': task.content,
+              'completed': task.completed.toString(),
+              'userId': task.id.toString()
+            }));
+
+    if (response.statusCode == 201) {
+      Tasks.add(task);
+      notifyListeners();
+    } else {
+      throw Exception('Failed to create task');
+    }
   }
 
   void update(Task task, bool completed, String content) {
