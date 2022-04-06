@@ -39,24 +39,52 @@ class TasksCollection extends ChangeNotifier {
     }
   }
 
-  void update(Task task, bool completed, String content) {
-    task.completed = completed;
-    task.content = content;
-    notifyListeners();
+  void update(Task task, bool completed, String content) async {
+    final response = await http.put(
+        Uri.parse('https://jsonplaceholder.typicode.com/todos/${task.id}'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'title': content,
+          'completed': completed.toString(),
+          'userId': task.id.toString()
+        }));
+
+    if (response.statusCode == 200) {
+      Tasks.remove(task);
+      Tasks.add(Task(task.id, content, completed, task.createdAt));
+      notifyListeners();
+    } else {
+      throw Exception('Failed to update task');
+    }
   }
 
-  void delete(Task? task, BuildContext context, Function hideDetails) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: const Text('Voulez-vous vraiment supprimer cette tâche ?'),
-      action: SnackBarAction(
-        label: 'Oui',
-        onPressed: () {
-          Tasks.remove(task);
-          hideDetails();
-          notifyListeners();
-        },
-      ),
-    ));
+  void delete(Task task, BuildContext context, Function hideDetails) async {
+    final response = await http.delete(
+        Uri.parse('https://jsonplaceholder.typicode.com/todos/${task.id}'));
+
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Voulez-vous vraiment supprimer cette tâche ?'),
+        action: SnackBarAction(
+          label: 'Oui',
+          onPressed: () {
+            Tasks.remove(task);
+            hideDetails();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Tâche supprimée'),
+                duration: Duration(seconds: 1),
+              ),
+            );
+            notifyListeners();
+          },
+        ),
+      ));
+    } else {
+      throw Exception('Failed to delete task');
+    }
   }
 
   getAll() async {
